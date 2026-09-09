@@ -1,52 +1,57 @@
-import { useState } from 'react';
+import { useState } from 'react'; // Імпортуємо useState для зберігання значень і помилок
 
+function LoginForm() {
 
-function LoginForm () {
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-const [emailError, setEmailError] = useState('');
-const [passwordError, setPasswordError] = useState('');
+  const [email, setEmail] = useState(''); // email — значення поля, setEmail — змінює його
+  const [password, setPassword] = useState(''); // password — значення пароля, setPassword — змінює його
+  const [emailError, setEmailError] = useState(''); // Тут зберігається помилка email
+  const [passwordError, setPasswordError] = useState(''); // Тут зберігається помилка password
 
-const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (e) => { // Функція спрацьовує при submit форми
+    e.preventDefault(); // Забороняємо стандартне перезавантаження сторінки
 
-    if (!email.includes('@')) {
-        setEmailError('Будь ласка, введіть дійсну електронну адресу.');
+    if (!email.includes('@')) { // Якщо email НЕ містить символ @
+      setEmailError('Будь ласка, введіть дійсну електронну адресу.'); // Записуємо текст помилки
     } else {
-        setEmailError('');
+      setEmailError(''); // Якщо email правильний — очищаємо помилку
     }
 
-    if (password.length < 8) {
-        setPasswordError('Пароль повинен містити щонайменше 8 символів.');
+    if (password.length < 8) { // Якщо пароль коротший за 8 символів
+      setPasswordError('Пароль повинен містити щонайменше 8 символів.'); // Записуємо помилку
     } else {
-        setPasswordError('');
+      setPasswordError(''); // Якщо пароль правильний — очищаємо помилку
     }
 
-    if (email.includes('@') && password.length >= 8) {
-        console.log('Форма успішно відправлена:', { email, password });
+    if (email.includes('@') && password.length >= 8) { // Якщо ОБИДВІ перевірки успішні
+      console.log('Форма успішно відправлена:', { email, password }); // Показуємо дані в консолі
     }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}> {/* При submit запускаємо handleSubmit */}
+
+      <input
+        type="email"
+        value={email} // Значення input береться зі state email
+        onChange={(e) => setEmail(e.target.value)} // При введенні записуємо нове значення в email
+        placeholder="Електронна адреса"
+      />
+
+      {emailError && <p>{emailError}</p>} {/* Якщо є помилка email — показуємо її */}
+
+      <input
+        type="password"
+        value={password} // Значення input береться зі state password
+        onChange={(e) => setPassword(e.target.value)} // При введенні оновлюємо password
+        placeholder="Пароль"
+      />
+
+      {passwordError && <p>{passwordError}</p>} {/* Якщо є помилка password — показуємо її */}
+
+      <button type="submit">Увійти</button> {/* Кнопка запускає submit форми */}
+
+    </form>
+  );
 }
 
-
-    return (
-        <form onSubmit={handleSubmit}>
-
-            <input type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Електронна адреса" />
-            {emailError && <p>{emailError}</p>}
-
-            <input type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Пароль" />
-            {passwordError && <p>{passwordError}</p>}
-
-            <button type="submit">Увійти</button>
-
-        </form>
-    );
-}
-
-export default LoginForm;
+export default LoginForm; // Дозволяємо імпортувати компонент в інших файлах
