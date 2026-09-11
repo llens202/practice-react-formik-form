@@ -1,12 +1,18 @@
 import HookForm from './components/ReactHookForm';
-// import FormikForm from './components/FormikForm'
+import FormikComponent from './components/FormikComponent';
+import LoginFromReact from './components/LoginFormReact';
+import FormikForm from './components/FormikForm'
 import './App.css'
 
 function App() {
 
 
 return (
-  <HookForm />
+  // <HookForm />
+  // <FormikForm />
+  // <LoginFromReact />
+  <FormikComponent />
+
 )
   
 }
